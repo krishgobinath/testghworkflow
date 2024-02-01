@@ -42,6 +42,6 @@ jobs:
           echo "$parsed_output"          
       - name: Echo json
         run: |
-          echo "${{ steps.parse-json.outputs.minerconfigss }}"
+          echo "${{ steps.parse-json.outputs.minerconfigs }}"
 
       
