@@ -46,6 +46,10 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: './info.json'
+      - name: Process JSON
+        run: |
+          formatted_data=$(jq '.configs' "${{ steps.package.outputs.content }}")
+          echo "{\"configs\":$formatted_data}"
       - name: Echo info json
         run: echo "${{ steps.package.outputs.content }}"
       - name: parse the json
