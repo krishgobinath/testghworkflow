@@ -39,6 +39,7 @@ jobs:
           echo "$minerconfigs"
           parsed_output=$(echo '{"configs":["miner1.json","miner2.json"]}' | jq -r '.configs')
           echo "::set-output name=minerconfigs::$parsed_output"
+          echo "::set-output name=minerone::"one""
           echo "$parsed_output"          
       - name: Echo json
         run: |
