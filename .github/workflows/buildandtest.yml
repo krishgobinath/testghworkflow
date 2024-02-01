@@ -41,5 +41,5 @@ jobs:
       - name: Echo json
         run: |
           echo "${{ steps.parse-json.outputs.minerconfigs }}"
-          echo "${{ fromJson(steps.parse-json.outputs.minerconfigs) }}"        
+          echo "${{ toJson(fromJson(steps.parse-json.outputs.minerconfigs)) }}"        
       
