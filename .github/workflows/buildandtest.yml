@@ -44,5 +44,6 @@ jobs:
       - name: Echo json
         run: |
           echo "${{ steps.parse-json.outputs.minerconfigs }}"
+          echo "${{ steps.parse-json.outputs.minerone }}"
 
       
