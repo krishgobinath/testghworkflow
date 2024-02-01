@@ -34,3 +34,12 @@ jobs:
           path: './info.json'
       - name: Echo info json
         run: echo "${{ steps.package.outputs.content }}"
+      - name: parse the json
+        id: parse-json
+        run: |
+          echo "::set-output name=minerconfigs::$(jq -r '.configs' <<< '${{ steps.package.outputs.content }}')"
+      - name: Echo json
+        run: |
+          echo "${{ steps.parse-json.outputs.minerconfigs }}"
+          echo "${{ fromJson(steps.parse-json.outputs.minerconfigs) }}"        
+      
