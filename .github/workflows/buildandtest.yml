@@ -1,10 +1,6 @@
 name: BuildAndRunAutomatedTest
-on:
-  workflow_dispatch:
-    inputs:
-        branch:
-          description: 'Branch name'
-          required: false
+on: [push, workflow_dispatch]
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -42,7 +38,7 @@ jobs:
           echo "$parse"
           echo "$minerconfigs"
           parsed_output=$(echo '{"configs":["miner1.json","miner2.json"]}' | jq -r '.configs')
-          echo "::set-output name=minerconfigss::$parsed_output" >> $GITHUB_ENV
+          echo "::set-output name=minerconfigss::$parsed_output"
           echo "$parsed_output"
           
       - name: Echo json
