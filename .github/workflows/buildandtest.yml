@@ -13,7 +13,7 @@ jobs:
         run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
       - name: Echo json
         run: |
-          echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
+          echo "${{ steps.set-matrix.outputs.matrix }}"
 
   job2:
     needs: job1
