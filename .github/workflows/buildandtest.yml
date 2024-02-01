@@ -42,11 +42,11 @@ jobs:
           echo "$parse"
           echo "$minerconfigs"
           parsed_output=$(echo '{"configs":["miner1.json","miner2.json"]}' | jq -r '.configs')
-          echo "::set-output name=minerconfigs::$parsed_output"
+          echo "::set-output name=minerconfigss::$parsed_output" >> $GITHUB_ENV
           echo "$parsed_output"
           
       - name: Echo json
         run: |
-          echo "${{ steps.parse-json.outputs.minerconfigs }}"
+          echo "${{ steps.parse-json.outputs.minerconfigss }}"
 
       
