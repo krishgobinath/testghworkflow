@@ -37,7 +37,13 @@ jobs:
       - name: parse the json
         id: parse-json
         run: |
-          echo "::set-output name=minerconfigs::$(jq -r '.configs' <<< '${{ steps.package.outputs.content }}')"
+          parse=$(jq -r '.configs' <<< '${{ steps.package.outputs.content }}')"
+          echo "::set-output name=minerconfigs::$parse"
+          echo "$parse"
+          parsed_output=$(echo "${{ steps.package.outputs.content }}" | jq -r '.configs')
+          echo "::set-output name=minerconfigs1::$parsed_output"
+          echo "$parsed_output"
+
       - name: Echo json
         run: |
           echo "${{ steps.parse-json.outputs.minerconfigs }}"      
