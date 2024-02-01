@@ -4,6 +4,20 @@ on: [push, workflow_dispatch]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  job1:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJSON(needs.job1.outputs.matrix) }}
+    steps:
+      - run: build
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
