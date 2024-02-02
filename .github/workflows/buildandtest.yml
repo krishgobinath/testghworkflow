@@ -46,18 +46,7 @@ jobs:
         id: package
         uses: juliangruber/read-file-action@v1
         with:
-          path: './info.json'
-      - name: Process another JSON
-        run: |
-          formatted_data=$(jq -r '.configs | @json' <<< '{"configs":["miner1.json","miner2.json"]}')
-          run: echo Hello, world 2!
-          echo "{\"configs\":$formatted_data}"
-      - name: Process JSON
-        run: |
-          formatted_data=$(echo "${{ steps.package.outputs.content }}" | jq '.configs' -c)
-          run: echo Hello, world 1!
-          echo "{\"configs\":$formatted_data}"
-          
+          path: './info.json'          
       - name: Echo info json
         run: echo "${{ steps.package.outputs.content }}"
       - name: parse the json
@@ -67,13 +56,8 @@ jobs:
           echo "{minerconfigs}={parse}" >> "$GITHUB_OUTPUT"
           echo "$parse"
           echo "$minerconfigs"
-          parsed_output=$(echo '{"configs":["miner1.json","miner2.json"]}' | jq -r '.configs')
-          echo "::set-output name=minerconfigs::$parsed_output"
-          echo "::set-output name=minerone::"one""
-          echo "$parsed_output"          
       - name: Echo json
         run: |
           echo "${{ fromJSON(steps.parse-json.outputs.minerconfigs) }}"
-          echo "${{ steps.parse-json.outputs.minerone }}"
 
       
