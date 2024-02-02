@@ -48,7 +48,7 @@ jobs:
           path: './info.json'
       - name: Process another JSON
         run: |
-          formatted_data=$(jq -r '.configs | @json' "${{ steps.package.outputs.content }}")
+          formatted_data=$(jq -r '.configs | @json' <<< '{"configs":["miner1.json","miner2.json"]}')
           run: echo Hello, world 2!
           echo "{\"configs\":$formatted_data}"
       - name: Process JSON
