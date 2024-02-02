@@ -32,8 +32,8 @@ jobs:
         run: |
           #echo hello woorld!
           #echo hello woorld1!
-          echo "${{ steps.set-matrix.outputs.matrix }}"
-          # echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
+          # echo "${{ steps.set-matrix.outputs.matrix }}"
+          echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
 
   job2:
     needs: job1
