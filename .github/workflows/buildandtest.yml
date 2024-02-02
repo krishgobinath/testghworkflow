@@ -17,7 +17,7 @@ jobs:
           echo hello woorld!
           echo hello woorld1!
           # echo "${{ steps.set-matrix.outputs.matrix }}"
-          # echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
+          echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
 
   job2:
     needs: job1
@@ -52,7 +52,7 @@ jobs:
         with:
           path: './info.json'          
       - name: Echo info json
-        run: echo "${{ steps.package.outputs.content }}"
+        run: echo "${{ fromJSON(steps.package.outputs.content) }}"
       - name: parse the json
         id: parse-json
         run: |
