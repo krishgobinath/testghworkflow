@@ -28,7 +28,7 @@ jobs:
       # - id: set-matrix
         # run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
         # run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
-      - name: Echo json
+      - name: Echoo json
         run: |
           #echo hello woorld!
           #echo hello woorld1!
