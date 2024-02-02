@@ -39,8 +39,8 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
-      # matrix: ${{ fromJSON(needs.job1.outputs.matrix) }}
-      matrix: ${{ needs.job1.outputs.matrix }}
+      matrix: ${{ fromJSON(needs.job1.outputs.matrix) }}
+      # matrix: ${{ needs.job1.outputs.matrix }}
     steps:
       - run: echo Hello, world!
   # This workflow contains a single job called "build"
