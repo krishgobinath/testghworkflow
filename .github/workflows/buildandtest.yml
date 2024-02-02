@@ -52,14 +52,20 @@ jobs:
         with:
           path: './info.json'          
       - name: Remove newline character
+        id: parse-json-trim
         run: |
           file_content=$(echo "${{ steps.package.outputs.content }}")
           trimmed_content=$(echo -n "$file_content" | tr -d '\n')
           echo "before trim:"
-          echo "$file_content"          
-          
+          echo "$file_content"                    
           echo "Content after trim:"
-          echo "$trimmed_content"          
+          echo "$trimmed_content"       
+          echo "{minerconfigs}={trimmed_content}" >> "$GITHUB_OUTPUT"
+          echo "${minerconfigs}"
+      - name: Echo json
+        run: |
+          echo "${{ steps.parse-json-trim.outputs.minerconfigs }}"
+          
       - name: parse the json
         id: parse-json
         run: |
