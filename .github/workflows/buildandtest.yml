@@ -10,8 +10,8 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - id: set-matrix
-        # run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
-        run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
+        run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
+        # run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
       - name: Echo json
         run: |
           echo hello woorld!
