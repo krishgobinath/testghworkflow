@@ -15,6 +15,7 @@ jobs:
       - name: Echo json
         run: |
           echo hello woorld!
+          echo hello woorld1!
           # echo "${{ steps.set-matrix.outputs.matrix }}"
           # echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
 
