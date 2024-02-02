@@ -14,14 +14,15 @@ jobs:
         run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
       - name: Echo json
         run: |
-          echo "${{ steps.set-matrix.outputs.matrix }}"
+          # echo "${{ steps.set-matrix.outputs.matrix }}"
           # echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
 
   job2:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJSON(needs.job1.outputs.matrix) }}
+      # matrix: ${{ fromJSON(needs.job1.outputs.matrix) }}
+      matrix: ${{ needs.job1.outputs.matrix }}
     steps:
       - run: echo Hello, world!
   # This workflow contains a single job called "build"
