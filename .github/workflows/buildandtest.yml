@@ -46,15 +46,15 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: './info.json'
-      - name: Process JSON
-        run: |
-          formatted_data=$(echo "${{ steps.package.outputs.content }}" | jq '.configs' -c)
-          run: echo Hello, world 1!
-          echo "{\"configs\":$formatted_data}"
       - name: Process another JSON
         run: |
           formatted_data=$(jq -r '.configs | @json' "${{ steps.package.outputs.content }}")
           run: echo Hello, world 2!
+          echo "{\"configs\":$formatted_data}"
+      - name: Process JSON
+        run: |
+          formatted_data=$(echo "${{ steps.package.outputs.content }}" | jq '.configs' -c)
+          run: echo Hello, world 1!
           echo "{\"configs\":$formatted_data}"
           
       - name: Echo info json
