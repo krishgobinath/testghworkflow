@@ -14,7 +14,10 @@ jobs:
         id: read-pyversion
         run: |        
           echo ::set-output name=pyver::[$(cat ./pyversion | tr '\n' ', ')]
-          
+      - name: Print Pyver Output
+        run: |
+          echo "ver ${{ steps.read-pyversion.outputs.pyver }}"
+    
   job2:
     needs: job1
     runs-on: ubuntu-latest
