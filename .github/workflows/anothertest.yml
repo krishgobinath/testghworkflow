@@ -11,7 +11,7 @@ jobs:
       - name: Read Python versions from file
         id: read-pyversion
         run: |        
-          echo ::set-output name=pyver::$(cat ./info.json | tr '\n' '')
+          echo ::set-output name=pyver::$(cat ./info.json)
       - name: Print Pyver Output
         run: |
           echo "ver ${{ steps.read-pyversion.outputs.pyver }}"
