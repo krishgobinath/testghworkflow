@@ -51,12 +51,10 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: './info.json'          
-      - name: Echo info json
-        run: echo "${{ steps.package.outputs.content }}"
       - name: parse the json
         id: parse-json
         run: |
-          parse=$(jq -r '.configs' <<< '{"configs":["miner1.json","miner2.json"]}')
+          run: echo "::set-output name=parse::${{ steps.package.outputs.content }}
           echo "{minerconfigs}={parse}" >> "$GITHUB_OUTPUT"
           echo "$parse"
           echo "$minerconfigs"
