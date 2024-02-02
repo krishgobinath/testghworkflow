@@ -9,8 +9,19 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - id: set-matrix
-        run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
+      - name: read config
+        id: package
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: './info.json'          
+      - name: Remove newline character
+        id: set-matrix
+        run: |
+          file_content=$(echo "${{ steps.package.outputs.content }}")
+          trimmed_content=$(echo -n "$file_content" | tr -d '\n')
+          echo "::set-output name=matrix::$trimmed_content"
+      # - id: set-matrix
+        # run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
         # run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
       - name: Echo json
         run: |
