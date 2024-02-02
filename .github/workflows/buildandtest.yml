@@ -18,8 +18,9 @@ jobs:
       - name: Set Matrix
         id: set-matrix
         run: |
-          content=$(echo "${{ steps.read-package.outputs.content }}")
+          content=$(echo "${{ steps.packager.outputs.content }}")
           matrix=$(jq -r '.' <<< "$content")
+          echo $matrix
           echo "::set-output name=matrix::$matrix"    
       #- name: Remove newline character
        # id: set-matrix
