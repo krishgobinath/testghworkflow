@@ -60,8 +60,8 @@ jobs:
           echo "$file_content"                    
           echo "Content after trim:"
           echo "$trimmed_content"       
-          echo "{minerconfigs}={trimmed_content}" >> "$GITHUB_OUTPUT"
-          echo "${minerconfigs}"
+          echo "::set-output name=minerconfigs::$trimmed_content"
+          echo "${{ steps.parse-json-trim.outputs.minerconfigs }}"
       - name: Echo json
         run: |
           echo "${{ steps.parse-json-trim.outputs.minerconfigs }}"
