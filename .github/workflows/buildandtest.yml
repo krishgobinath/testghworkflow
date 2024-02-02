@@ -26,8 +26,8 @@ jobs:
           echo "$trimmed_content"                 
           echo "::set-output name=mat::$trimmed_content"
       - id: set-matrix
-        # run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
-        run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
+        run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
+        # run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
       - name: Echoo json
         run: |
           #echo hello woorld!
