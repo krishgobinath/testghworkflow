@@ -19,7 +19,7 @@ jobs:
         id: set-matrix
         run: |
           #file_content=$(echo "${{ steps.packager.outputs.content }}")
-          file_content=$(echo '["foo", "boo", "hoo"]')  # Remove extra newlines if needed
+          file_content=$(echo '["foo", "boo", "hoo"]')
           formatted_json=$(echo "$file_content" | jq)
           echo "::set-output name=matrix::$formatted_json"
 
