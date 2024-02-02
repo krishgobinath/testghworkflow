@@ -12,9 +12,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Read Python versions from file
         id: read-pyversion
-        run: |
-          cat ./pyversion | tr -d '\n\r ' | tee versions.txt
-          echo ::set-output name=pyver::$(jq -R . < versions.txt)
+        run: |        
+          echo ::set-output name=pyver::[$(cat ./pyversion | tr '\n' ', ')]
+          
   job2:
     needs: job1
     runs-on: ubuntu-latest
