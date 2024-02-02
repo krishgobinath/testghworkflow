@@ -5,7 +5,7 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.read-pyversion.outputs.pyver }}
+      job1-pyver: ${{ steps.read-pyversion.outputs.pyver }}
     steps:
       - uses: actions/checkout@v3
       - name: Read Python versions from file
@@ -19,14 +19,11 @@ jobs:
   job2:
     needs: job1
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.job1.outputs.matrix }}
     strategy:
       matrix:
-        pyver: ${{fromJson(needs.job1.outputs.matrix)}}
+        pyver: ${{fromJson(needs.job1.outputs.job1-pyver)}}
     steps:
       - run: echo "Python version"
-
         
   # This workflow contains a single job called "build"
   build:
