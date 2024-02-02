@@ -11,23 +11,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: read config
-        id: package
+        id: packager
         uses: juliangruber/read-file-action@v1
         with:
           path: './info.json'          
       - name: Remove newline character
         id: set-matrix
         run: |
-          file_content=$(echo "${{ steps.package.outputs.content }}")
+          file_content=$(echo "${{ steps.packager.outputs.content }}")
           trimmed_content=$(echo -n "$file_content" | tr -d '\n')
           echo "::set-output name=matrix::$trimmed_content"
       # - id: set-matrix
         # run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
         # run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
-      - name: Echo json
-        run: |
-          echo hello woorld!
-          echo hello woorld1!
+      #- name: Echo json
+        #run: |
+          #echo hello woorld!
+          #echo hello woorld1!
           # echo "${{ steps.set-matrix.outputs.matrix }}"
           # echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
 
