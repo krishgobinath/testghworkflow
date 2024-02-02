@@ -54,10 +54,12 @@ jobs:
       - name: parse the json
         id: parse-json
         run: |
-          echo "::set-output name=parse::${{ steps.package.outputs.content }}
+          echo "::set-output name=parse::${{ steps.package.outputs.content }}"
           echo "{minerconfigs}={parse}" >> "$GITHUB_OUTPUT"
           echo "$parse"
+          echo "${{ parse }}"
           echo "$minerconfigs"
+          echo "${{ minerconfigs }}"
       - name: Echo json
         run: |
           echo "${{ steps.parse-json.outputs.minerconfigs }}"
