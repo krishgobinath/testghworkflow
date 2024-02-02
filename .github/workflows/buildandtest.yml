@@ -9,6 +9,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+      - uses: actions/checkout@v3
       - name: read config
         id: package
         uses: juliangruber/read-file-action@v1
