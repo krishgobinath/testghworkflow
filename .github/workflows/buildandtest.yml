@@ -53,7 +53,7 @@ jobs:
           path: './info.json'          
       - name: Remove newline character
         run: |
-          file_content=$(cat "${{ steps.package.outputs.content }}")
+          file_content=$(echo "${{ steps.package.outputs.content }}")
           trimmed_content=$(echo -n "$file_content" | tr -d '\n')
           echo "before trim:"
           echo "$file_content"          
