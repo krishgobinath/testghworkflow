@@ -10,12 +10,12 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - id: set-matrix
-        run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
+        # run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
         # run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
       - name: Echo json
         run: |
-          # echo "${{ steps.set-matrix.outputs.matrix }}"
-          echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
+          echo "${{ steps.set-matrix.outputs.matrix }}"
+          # echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
 
   job2:
     needs: job1
