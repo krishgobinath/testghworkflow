@@ -16,7 +16,7 @@ jobs:
         with:
           path: './info.json'          
       - name: Remove newline character
-        id: set-matrixx
+        id: set-matrix
         run: |
           file_content=$(echo "${{ steps.packager.outputs.content }}")
           trimmed_content=$(echo -n "$file_content" | tr -d '\n')
@@ -24,9 +24,9 @@ jobs:
           echo "$file_content"                    
           echo "Content after trim:"
           echo "$trimmed_content"                 
-          echo "::set-output name=mat::$trimmed_content"
-      - id: set-matrix
-        run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
+          echo "::set-output name=matrix::$trimmed_content"
+      # - id: set-matrix
+        # run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
         # run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
       - name: Echoo json
         run: |
