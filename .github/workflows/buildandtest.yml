@@ -19,10 +19,10 @@ jobs:
         id: set-matrix
         run: |
           #file_content=$(echo "${{ steps.packager.outputs.content }}")
-          file_content=$(echo '["foo", "boo", "hoo"]')
+          file_content=$(echo ["foo", "boo", "hoo"])
           formatted_json=$(echo "$file_content" | jq)
           format=["windows", "linux"]
-          echo "::set-output name=matrix::$formatted_json"
+          echo "::set-output name=matrix::$format"
 
           echo "Before trim:"
           echo "$file_content"
@@ -31,11 +31,11 @@ jobs:
       # - id: set-matrix
         # run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
         # run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
-      # - name: Echoo json
-        # run: |
+      - name: Echoo json
+        run: |
           #echo hello woorld!
-          #echo hello woorld1!
-          # echo "${{ steps.set-matrix.outputs.matrix }}"
+          echo hello woorld1!
+          echo "${{ steps.set-matrix.outputs.matrix }}"
           # echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
 
   job2:
