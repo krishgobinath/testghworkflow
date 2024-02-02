@@ -7,48 +7,19 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix: ${{ steps.read-pyversion.outputs.pyver }}
     steps:
-      - uses: actions/checkout@v3
-      - name: read config
-        id: packager
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: './info.json'          
-      - name: Set Matrix
-        id: set-matrix
+      - name: Read Python versions from file
+        id: read-pyversion
         run: |
-          content=$(echo "${{ steps.packager.outputs.content }}")
-          matrix=$(jq -r '.' <<< "$content")
-          echo $matrix
-          echo "::set-output name=matrix::$matrix"    
-      #- name: Remove newline character
-       # id: set-matrix
-        #run: |
-          #file_content=$(echo "${{ steps.packager.outputs.content }}")
-          # file_content=$(echo ["foo", "boo", "hoo"])
-          # formatted_json=$(echo "$file_content" | jq)
-         # format='["windows", "linux"]'
-          #echo "::set-output name=matrix::$format"
-
-          # echo "Before trim:"
-          # echo "$file_content"
-          # echo "$formatted_json"          
-      # - id: set-matrix
-        # run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
-        # run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
-      - name: Echoo json
-        run: |
-          #echo hello woorld!
-          echo hello woorld1!
-          echo "${{ steps.set-matrix.outputs.matrix }}"
-          echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
-
+          cat ./pyversion | tr -d '\n\r ' | tee versions.txt
+          echo ::set-output name=pyver::$(jq -R . < versions.txt)
   job2:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJSON(needs.job1.outputs.matrix) }}
+      matrix:
+        pyver: ${{ fromJson(needs.job1.outputs.pyver) }}
       # matrix: ${{ needs.job1.outputs.matrix }}
     steps:
       - run: echo Hello, world!
