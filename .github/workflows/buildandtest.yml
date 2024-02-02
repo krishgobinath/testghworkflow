@@ -4,22 +4,29 @@ on: [push, workflow_dispatch]
 jobs:
   job1:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.read-pyversion.outputs.pyver }}
     steps:
       - uses: actions/checkout@v3
       - name: Read Python versions from file
         id: read-pyversion
-        run: |
+        run: |        
           echo ::set-output name=pyver::[$(cat ./pyversion | tr '\n' ', ' | sed 's/,$//')]
       - name: Print Pyver Output
         run: |
           echo "ver ${{ steps.read-pyversion.outputs.pyver }}"
-
+    
   job2:
     needs: job1
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.job1.outputs.matrix }}
     strategy:
       matrix:
-        pyver: ${{ fromJson(needs.job1.outputs.pyver) }}
+        pyver: ${{fromJson(needs.job1.outputs.matrix)}}
+    steps:
+      - run: echo "Python version"
+
         
   # This workflow contains a single job called "build"
   build:
