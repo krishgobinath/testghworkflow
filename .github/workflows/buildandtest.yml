@@ -51,6 +51,15 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: './info.json'          
+      - name: Remove newline character
+        run: |
+          file_content=$(cat "${{ steps.package.outputs.content }}")
+          trimmed_content=$(echo -n "$file_content" | tr -d '\n')
+          echo "before trim:"
+          echo "$file_content"          
+          
+          echo "Content after trim:"
+          echo "$trimmed_content"          
       - name: parse the json
         id: parse-json
         run: |
