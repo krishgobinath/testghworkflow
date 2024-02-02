@@ -15,14 +15,20 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: './info.json'          
-      - name: Remove newline character
+      - name: Set Matrix
         id: set-matrix
         run: |
+          content=$(echo "${{ steps.read-package.outputs.content }}")
+          matrix=$(jq -r '.' <<< "$content")
+          echo "::set-output name=matrix::$matrix"    
+      #- name: Remove newline character
+       # id: set-matrix
+        #run: |
           #file_content=$(echo "${{ steps.packager.outputs.content }}")
           # file_content=$(echo ["foo", "boo", "hoo"])
           # formatted_json=$(echo "$file_content" | jq)
-          format='["windows", "linux"]'
-          echo "::set-output name=matrix::$format"
+         # format='["windows", "linux"]'
+          #echo "::set-output name=matrix::$format"
 
           # echo "Before trim:"
           # echo "$file_content"
@@ -35,7 +41,7 @@ jobs:
           #echo hello woorld!
           echo hello woorld1!
           echo "${{ steps.set-matrix.outputs.matrix }}"
-          # echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
+          echo "${{ fromJSON(steps.set-matrix.outputs.matrix) }}"
 
   job2:
     needs: job1
