@@ -1,37 +1,30 @@
 name: BuildAndRunAutomatedTest
 on: [push, workflow_dispatch]
 
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  job1:    
+  job1:
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.read-pyversion.outputs.pyver }}
     steps:
       - uses: actions/checkout@v3
       - name: Read Python versions from file
         id: read-pyversion
-        run: |        
+        run: |
           echo ::set-output name=pyver::[$(cat ./pyversion | tr '\n' ', ' | sed 's/,$//')]
       - name: Print Pyver Output
         run: |
           echo "ver ${{ steps.read-pyversion.outputs.pyver }}"
-    
+
   job2:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
       matrix:
         pyver: ${{ fromJson(needs.job1.outputs.pyver) }}
-      # matrix: ${{ needs.job1.outputs.matrix }}
-    steps:
-      - run: echo Hello, world!
+        
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
