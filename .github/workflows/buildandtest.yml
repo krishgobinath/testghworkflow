@@ -19,12 +19,13 @@ jobs:
         id: set-matrix
         run: |
           file_content=$(echo "${{ steps.packager.outputs.content }}")
-          trimmed_content=$(echo -n "$file_content" | tr -d '\n')
-          echo "before trim:"
-          echo "$file_content"                    
-          echo "Content after trim:"
-          echo "$trimmed_content"                 
-          echo "::set-output name=matrix::$trimmed_content"
+          formatted_json=$(echo "$file_content" | jq)
+          echo "::set-output name=matrix::$formatted_json"
+
+          echo "Before trim:"
+          echo "$file_content"
+          echo "Content after formatting:"
+          echo "$formatted_json"          
       # - id: set-matrix
         # run: echo "::set-output name=matrix::{\"configs\":[\"miner1.json\",\"miner2.json\"]}"
         # run: echo "::set-output name=matrix::{"configs":["miner1.json","miner2.json"]}"
